@@ -91,10 +91,6 @@ To set up the backend locally, follow these steps:
 - **Job Queueing**: Uses BullMQ (Redis) to queue and process summary generation tasks asynchronously.
 - **Scalability**: The queueing system ensures that large volumes of summary requests are handled efficiently.
 
-#### Unit Tests for AI Model
-
-- Includes unit tests to ensure the correct implementation of the AI model and its integration with the API.
-
 ## API Documentation
 
 The API documentation is provided through a Postman collection. You can view and interact with the API endpoints using the following link:
