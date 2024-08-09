@@ -97,6 +97,13 @@ The API documentation is provided through a Postman collection. You can view and
 
 [Postman Collection](https://documenter.getpostman.com/view/33585837/2sA3s3GWic)
 
+## Video Demonstration
+
+A video demonstration of the backend functionality and API requests can be viewed on Vimeo:
+
+[Video Demonstration](https://vimeo.com/996840044/aaebe2f4d8?share=copy)
+
+
 ## Technologies Used
 
 - **NestJS**: A progressive Node.js framework for building efficient and scalable server-side applications.
