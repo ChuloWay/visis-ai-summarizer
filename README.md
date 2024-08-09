@@ -1,73 +1,122 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Visis Backend Assessment
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This repository contains the backend API for handling book information requests and summary generation, built with NestJS, MongoDB, and BullMQ for job queuing. The project also integrates NLP libraries for generating text summaries of books.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Installation](#installation)
+- [Features](#features)
+  - [API Development](#api-development)
+  - [AI Model for Summaries](#ai-model-for-summaries)
+- [API Documentation](#api-documentation)
+- [Technologies Used](#technologies-used)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
-```bash
-$ npm install
-```
+To set up the backend locally, follow these steps:
 
-## Running the app
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/[your-username]/visis-backend-assessment-[your-name].git
+    cd visis-backend-assessment-[your-name]
+    ```
 
-```bash
-# development
-$ npm run start
+2. **Install dependencies**:
+    ```sh
+    npm install
+    ```
 
-# watch mode
-$ npm run start:dev
+3. **Create an environment file**:
+    - Duplicate the `.env.example` file in the project root.
+    - Rename the duplicated file to `.env`.
+    - Open the `.env` file and set your variables as shown in the example file.
 
-# production mode
-$ npm run start:prod
-```
+    ```bash
+    cp .env.example .env
+    ```
 
-## Test
+    Ensure to fill in the necessary values in the `.env` file for a smooth configuration.
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+ 4. **Seed the Database**:
+    If you want to populate the database with initial data, run the following command:
 
-# test coverage
-$ npm run test:cov
-```
+    ```sh
+    npm run seed
+    ```
 
-## Support
+    This will execute the seeding script and add predefined data to your MongoDB database.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+5. **Run the development server**:
+    ```sh
+    npm run start:dev
+    ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+    The backend server will be running at `http://localhost:3000`.
+
+## Features
+
+### Part 1: API Development
+
+#### Book Information Endpoints
+
+- **Fetch Book Details**: Provides endpoints to retrieve book information such as title and publisher.
+- **Summary Retrieval**: Endpoints to fetch pre-generated summaries of books stored in the database.
+
+#### Input Validation and Error Handling
+
+- Implements input validation using TypeScript and validation pipes in NestJS.
+- Handles errors gracefully with appropriate HTTP status codes and error messages.
+
+
+### Part 2: AI Model for Summaries
+
+#### Text Summary Generation
+
+- **AI Model Integration**: Integrates NLP models to generate text summaries of books.
+- **Handling Varying Input Lengths**: The model can process input texts of varying lengths and generate concise summaries.
+
+#### NLP Libraries
+
+- **TfIdf**: Used for extracting important terms from the text.
+- **TensorFlow.js**: Utilized for loading and running machine learning models.
+- **Universal Sentence Encoder**: Employed for encoding sentences into high-dimensional vectors.
+- **Synonyms**: Leverages synonyms to enhance the quality of generated summaries.
+
+#### Queueing with BullMQ
+
+- **Job Queueing**: Uses BullMQ (Redis) to queue and process summary generation tasks asynchronously.
+- **Scalability**: The queueing system ensures that large volumes of summary requests are handled efficiently.
+
+#### Unit Tests for AI Model
+
+- Includes unit tests to ensure the correct implementation of the AI model and its integration with the API.
+
+## API Documentation
+
+The API documentation is provided through a Postman collection. You can view and interact with the API endpoints using the following link:
+
+[Postman Collection](https://documenter.getpostman.com/view/33585837/2sA3s3GWic)
+
+## Technologies Used
+
+- **NestJS**: A progressive Node.js framework for building efficient and scalable server-side applications.
+- **MongoDB**: A NoSQL database used for storing book information and summaries.
+- **Mongoose**: An ODM library for MongoDB, enabling schema-based data modeling.
+- **BullMQ**: A Node.js library for managing Redis-based job queues.
+- **Redis**: An in-memory data structure store used for job queue management.
+- **TensorFlow.js**: A library for training and deploying machine learning models in JavaScript.
+- **Natural**: A general natural language processing library for JavaScript.
+- **Universal Sentence Encoder**: A TensorFlow model that encodes sentences into vectors.
+- **Synonyms**: A library for finding synonyms to enhance text processing.
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License.
