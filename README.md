@@ -19,8 +19,8 @@ To set up the backend locally, follow these steps:
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/[your-username]/visis-backend-assessment-[your-name].git
-    cd visis-backend-assessment-[your-name]
+    git clone https://github.com/ChuloWay/visis-backend-assessment-victorokoye.git
+    cd visis-backend-assessment-victorokoye
     ```
 
 2. **Install dependencies**:
