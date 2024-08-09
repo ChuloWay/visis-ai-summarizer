@@ -2,6 +2,7 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
 export type SummaryDocument = HydratedDocument<Summary>;
+
 @Schema()
 export class Summary {
   @Prop({ default: () => new Types.ObjectId() })

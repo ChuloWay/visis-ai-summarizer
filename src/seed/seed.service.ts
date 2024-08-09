@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Book, BookDocument } from '../book/schema/book.schema';
 import { Summary, SummaryDocument } from '../summary/schema/summary.schema';
 
@@ -41,13 +41,12 @@ export class SeedService {
       await createdBook.save();
 
       const summaryText = `Summary for: ${bookData.title}`;
-      const createdSummary = await this.summaryModel.create({
+      const createdSummary = new this.summaryModel({
         book: createdBook._id,
         summary: summaryText,
       });
 
-      createdBook.summary = createdSummary._id;
-      await createdBook.save();
+      await createdSummary.save();
     }
 
     console.log(

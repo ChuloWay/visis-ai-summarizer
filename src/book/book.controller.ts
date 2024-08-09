@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { BookService } from './book.service';
-import { Book } from './schema/book.schema'; // Assuming you're using the schema for typing
+import { Book } from './schema/book.schema';
 
 @Controller('books')
 export class BookController {
@@ -20,6 +20,6 @@ export class BookController {
 
   @Get(':title')
   async findOne(@Param('title') title: string): Promise<Book> {
-    return this.bookService.findOne(title);
+    return this.bookService.findOneByTitle(title);
   }
 }

@@ -5,9 +5,13 @@ import { BookSchema } from 'src/book/schema/book.schema';
 import { SummarySchema } from 'src/summary/schema/summary.schema';
 import { SummaryService } from '../summary/summary.service';
 import { SeedService } from './seed.service';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
+    BullModule.registerQueue({
+      name: 'summary-queue',
+    }),
     MongooseModule.forFeature([{ name: 'Book', schema: BookSchema }]),
     MongooseModule.forFeature([{ name: 'Summary', schema: SummarySchema }]),
   ],
