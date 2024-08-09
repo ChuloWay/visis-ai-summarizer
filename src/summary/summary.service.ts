@@ -5,15 +5,38 @@ import * as use from '@tensorflow-models/universal-sentence-encoder';
 // import synonyms from 'synonyms';
 var synonyms = require('synonyms');
 import { stopWords } from '../stopwords';
-
+import { InjectModel } from '@nestjs/mongoose';
+import { Summary, SummaryDocument } from './schema/summary.schema';
+import { Model, Types } from 'mongoose';
 @Injectable()
 export class SummaryService {
   private readonly logger = new Logger(SummaryService.name);
   private model: any;
 
-  constructor() {
+  constructor(
+    @InjectModel(Summary.name) private summaryModel: Model<SummaryDocument>,
+  ) {
     this.loadModel();
   }
+
+  async create(bookId: Types.ObjectId, summaryText: string): Promise<Summary> {
+    const createdSummary = new this.summaryModel({
+      book: bookId,
+      summary: summaryText,
+    });
+    return createdSummary.save();
+  }
+
+  async update(id: any, summaryText: string): Promise<Summary> {
+    return this.summaryModel
+      .findByIdAndUpdate(id, { summary: summaryText }, { new: true })
+      .exec();
+  }
+
+  async delete(id: any): Promise<any> {
+    return this.summaryModel.findByIdAndDelete(id).exec();
+  }
+
   /**
    * Asynchronously loads the Universal Sentence Encoder model.
    * @private

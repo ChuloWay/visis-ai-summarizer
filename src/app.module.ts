@@ -5,6 +5,7 @@ import { BookModule } from './book/book.module';
 import { SummaryModule } from './summary/summary.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     }),
     BookModule,
     SummaryModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

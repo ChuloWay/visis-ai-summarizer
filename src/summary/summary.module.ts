@@ -10,5 +10,6 @@ import { Summary, SummarySchema } from './schema/summary.schema';
   ],
   controllers: [SummaryController],
   providers: [SummaryService],
+  exports: [SummaryService],
 })
 export class SummaryModule {}

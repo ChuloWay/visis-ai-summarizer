@@ -1,23 +1,25 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { BookService } from './book.service';
-import { Book } from './interfaces/book.interface';
+import { Book } from './schema/book.schema'; // Assuming you're using the schema for typing
 
 @Controller('books')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Post()
-  create(@Body() book: Book) {
-    this.bookService.create(book);
+  async create(
+    @Body() book: { title: string; publisher: string; text: string },
+  ): Promise<Book> {
+    return this.bookService.create(book);
   }
 
   @Get()
-  findAll(): Book[] {
+  async findAll(): Promise<Book[]> {
     return this.bookService.findAll();
   }
 
   @Get(':title')
-  findOne(@Param('title') title: string): Book {
+  async findOne(@Param('title') title: string): Promise<Book> {
     return this.bookService.findOne(title);
   }
 }
